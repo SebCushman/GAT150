@@ -1,4 +1,7 @@
+#include "Graphics/Texture.h"
+
 #include <iostream>
+#include <SDL_image.h>
 #include <SDL.h>
 
 int main(int, char**){
@@ -6,6 +9,8 @@ int main(int, char**){
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 		return 1;
 	}
+
+	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
 	SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
 	if (window == nullptr) {
@@ -28,13 +33,10 @@ int main(int, char**){
 	memset(pixels, 255, width * height * sizeof(Uint32));
 	SDL_UpdateTexture(texture, NULL, pixels, width * sizeof(Uint32));
 
-	SDL_Surface* surface = SDL_LoadBMP("sf2.bmp");
-	if (surface == nullptr) {
-		std::cout << "Error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
-	SDL_Texture* texture2 = SDL_CreateTextureFromSurface(renderer, surface);
+	nc::Texture texture2;
+	texture2.Create("sf2.png", renderer);
+	float angle{ 0 };
+	
 
 	SDL_Event event;
 	bool quit = false;
@@ -62,19 +64,15 @@ int main(int, char**){
 		rect.h = height;
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 
-		SDL_Rect rect2;
-		rect2.x = 20;
-		rect2.y = 20;
-		SDL_QueryTexture(texture2, NULL, NULL, &rect2.w, &rect.h);
-		SDL_RenderCopy(renderer, texture2, NULL, &rect2);
-
+		angle = angle + 1;
+		texture2.Draw({ 500, 100 }, { 2, 2 }, angle);
 		//SDL_RenderCopy(renderer, texture2, NULL, NULL);
 
 		SDL_RenderPresent(renderer);
 	}
 	
 
-
+	IMG_Quit();
 	SDL_Quit();
 
 	return 0;
