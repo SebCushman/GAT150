@@ -1,80 +1,69 @@
 #include "Graphics/Texture.h"
-
-#include <iostream>
+#include "Resources/ResourceManager.h"
+#include "Graphics/Renderer.h"
+#include "Input/InputSystem.h"
 #include <SDL_image.h>
 #include <SDL.h>
+#include <iostream>
 
-int main(int, char**){
-	if (SDL_Init(SDL_INIT_VIDEO) != 0){
-		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-		return 1;
-	}
+nc::Renderer renderer;
+nc::ResourceManager resourceManager;
+nc::InputSystem inputSystem;
 
-	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+int main(int, char**) {
 
-	SDL_Window* window = SDL_CreateWindow("GAT150", 100, 100, 800, 600, SDL_WINDOW_SHOWN);
-	if (window == nullptr) {
-		std::cout << "Error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
+    renderer.Startup();
+    resourceManager.Startup();
+    inputSystem.Startup();
 
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (renderer == nullptr) {
-		std::cout << "Error: " << SDL_GetError() << std::endl;
-		SDL_Quit();
-		return 1;
-	}
+    renderer.Create("GAT150", 800, 600);
 
-	int width = 128;
-	int height = 128;
-	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, width, height);
-	Uint32* pixels = new Uint32[width * height];
-	memset(pixels, 255, width * height * sizeof(Uint32));
-	SDL_UpdateTexture(texture, NULL, pixels, width * sizeof(Uint32));
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-	nc::Texture texture2;
-	texture2.Create("sf2.png", renderer);
-	float angle{ 0 };
-	
+    nc::Texture* texture = resourceManager.Get<nc::Texture>("sf2.png", &renderer);
+    nc::Texture* texture2 = resourceManager.Get<nc::Texture>("sf2.png", &renderer);
 
-	SDL_Event event;
-	bool quit = false;
-	while (!quit) {
-		SDL_PollEvent(&event);
-		switch (event.type) {
-		case SDL_QUIT:
-			quit = true;
-			break;
-		}
+    float angle{ 0 };
+    nc::Vector2 position{ 400, 300 };
 
-		SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-		SDL_RenderClear(renderer);
+    SDL_Event event;
+    bool quit = false;
+    while (!quit) {
+        SDL_PollEvent(&event);
+        switch (event.type) {
+        case SDL_QUIT:
+            quit = true;
+            break;
+        }
 
-		for (int i = 0; i < width * height; i++) {
-			Uint8 c = rand() % 256;
-			pixels[i] = (c << 24 | c << 16 | c << 8);
-		}
-		SDL_UpdateTexture(texture, NULL, pixels, width * sizeof(Uint32));
+        inputSystem.Update();
 
-		SDL_Rect rect;
-		rect.x = 140;
-		rect.y = 140;
-		rect.w = width;
-		rect.h = height;
-		SDL_RenderCopy(renderer, texture, NULL, &rect);
+        if (inputSystem.GetButtonState(SDL_SCANCODE_LEFT) == nc::InputSystem::eButtonState::HELD)
+        {
+            position.x = position.x - 1.0f;
+        }
+        if (inputSystem.GetButtonState(SDL_SCANCODE_RIGHT) == nc::InputSystem::eButtonState::HELD)
+        {
+            position.x = position.x + 1.0f;
+        }
 
-		angle = angle + 1;
-		texture2.Draw({ 500, 100 }, { 2, 2 }, angle);
-		//SDL_RenderCopy(renderer, texture2, NULL, NULL);
+        resourceManager.Update();
 
-		SDL_RenderPresent(renderer);
-	}
-	
+        //SDL_SetRenderDrawColor(renderer, 20, 0, 30, 255);
+        renderer.BeginFrame();
 
-	IMG_Quit();
-	SDL_Quit();
+        angle += 0.5f;
 
-	return 0;
+        texture->Draw(position, { 1, 1 }, angle);
+        texture2->Draw({ 300, 400 }, { 2, 2 }, angle + 90);
 
+        renderer.EndFrame();
+    }
+
+    inputSystem.Shutdown();
+    resourceManager.Shutdown();
+    IMG_Quit();
+    SDL_Quit();
+
+    return 0;
 }
