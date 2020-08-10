@@ -1,16 +1,22 @@
+#include "pch.h"
 #include "Graphics/Texture.h"
 #include "Resources/ResourceManager.h"
 #include "Graphics/Renderer.h"
 #include "Input/InputSystem.h"
+#include "Core/Timer.h"
 #include <SDL_image.h>
-#include <SDL.h>
-#include <iostream>
+
 
 nc::Renderer renderer;
 nc::ResourceManager resourceManager;
 nc::InputSystem inputSystem;
+nc::FrameTimer timer;
 
 int main(int, char**) {
+    /*nc::Timer timer;
+    for (size_t i = 0; i < 1000; i++) { std::sqrt(rand() % 100); }
+    std::cout << timer.ElapsedTicks() << std::endl;
+    std::cout << timer.ElapsedSeconds() << std::endl;*/
 
     renderer.Startup();
     resourceManager.Startup();
@@ -36,23 +42,24 @@ int main(int, char**) {
             break;
         }
 
+        timer.Tick();
+        resourceManager.Update();
         inputSystem.Update();
 
         if (inputSystem.GetButtonState(SDL_SCANCODE_LEFT) == nc::InputSystem::eButtonState::HELD)
         {
-            position.x = position.x - 1.0f;
+            position.x = position.x - 200.0f * timer.DeltaTime();
         }
         if (inputSystem.GetButtonState(SDL_SCANCODE_RIGHT) == nc::InputSystem::eButtonState::HELD)
         {
-            position.x = position.x + 1.0f;
+            position.x = position.x + 200.0f * timer.DeltaTime();
         }
 
-        resourceManager.Update();
 
         //SDL_SetRenderDrawColor(renderer, 20, 0, 30, 255);
         renderer.BeginFrame();
 
-        angle += 0.5f;
+        angle = angle + 90 * timer.DeltaTime();
 
         texture->Draw(position, { 1, 1 }, angle);
         texture2->Draw({ 300, 400 }, { 2, 2 }, angle + 90);
