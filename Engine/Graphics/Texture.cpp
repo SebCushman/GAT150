@@ -39,6 +39,20 @@ namespace nc {
 
 		SDL_RenderCopyEx(m_renderer, m_texture, nullptr, &rect, angle, nullptr, SDL_FLIP_NONE);
 	}
+
+	void nc::Texture::Draw(const SDL_Rect& source, const Vector2& position, const Vector2& scale, float angle)
+	{
+		Vector2 size = { source.w, source.h };
+		size = size * scale;
+		SDL_Rect rect;
+		rect.x = static_cast<int>(position.x);
+		rect.y = static_cast<int>(position.y);
+		rect.w = static_cast<int>(size.x);
+		rect.h = static_cast<int>(size.y);
+
+		SDL_RenderCopyEx(m_renderer, m_texture, &source, &rect, angle, nullptr, SDL_FLIP_NONE);
+	}
+
 	Vector2 Texture::GetSize() const
 	{
 		SDL_Point point;

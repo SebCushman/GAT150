@@ -24,7 +24,7 @@ namespace nc {
     }
     void FrameTimer::Tick()
     {
-        m_dt = static_cast<float>(ElapsedSeconds());
+        m_dt = static_cast<double>(ElapsedSeconds());
         m_timePoint = clock::now();
     }
 }
