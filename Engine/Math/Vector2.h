@@ -42,6 +42,14 @@ namespace nc
 
 		friend std::istream& operator >> (std::istream& stream, Vector2& v);
 
+		friend std::ostream& operator << (std::ostream& stream, Vector2& v)
+		{
+			stream << v.x << " " << v.y;
+
+			return stream;
+		}
+
+
 		float Length() const;
 		float LengthSqr() const;
 		static float Distance(const Vector2& v1, const Vector2& v2);
@@ -56,6 +64,8 @@ namespace nc
 		static const Vector2 up;
 		static const Vector2 down;
 		static const Vector2 forward;
+		static const Vector2 one;
+		static const Vector2 zero;
 	};
 
 	inline float Vector2::Length() const {

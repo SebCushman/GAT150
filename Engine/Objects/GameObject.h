@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Math/Transform.h"
+#include "Engine.h"
 
 namespace nc {
 	class Component;
@@ -10,6 +11,8 @@ namespace nc {
 		// Inherited via Object
 		virtual void Create(void* data = nullptr) override;
 		virtual void Destroy() override;
+
+		void Read(const rapidjson::Value& value) override;
 
 		void Update();
 		void Draw();
@@ -32,6 +35,7 @@ namespace nc {
 
 	public:
 		Transform m_transform;
+		Engine* m_engine;
 
 	protected:
 		std::vector<Component*> m_components;

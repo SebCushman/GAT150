@@ -18,8 +18,11 @@ namespace nc {
 		template<typename T>
 		T* GetSystem();
 
+		FrameTimer& GetTimer() { return m_timer; }
+
 	protected:
 		std::vector<System*> m_systems;
+		FrameTimer m_timer;
 	};
 
 	template<typename T>

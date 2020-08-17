@@ -2,15 +2,24 @@
 #include "GameObject.h"
 #include "Components\Component.h"
 #include "Components\RenderComponent.h"
+#include "Components\PhysicsComponent.h"
 
 namespace nc {
 	void GameObject::Create(void* data)
 	{
+		m_engine = static_cast<Engine*>(data);
 	}
 
 	void GameObject::Destroy()
 	{
 		RemoveAllComponents();
+	}
+
+	void GameObject::Read(const rapidjson::Value& value)
+	{
+		json::Get(value, "position", m_transform.position);
+		json::Get(value, "scale", m_transform.scale);
+		json::Get(value, "angle", m_transform.angle);
 	}
 
 	void GameObject::Update()

@@ -32,6 +32,8 @@ namespace nc {
 
 	void nc::Engine::Update()
 	{
+		m_timer.Tick();
+
 		for (auto system : m_systems) {
 			system->Update();
 		}

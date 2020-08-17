@@ -41,6 +41,14 @@ namespace nc
 		//friend std::ostream& operator << (std::ostream& stream, const Color& color){stream << "{" << color.r <<  }
 		friend std::istream& operator >> (std::istream& stream, Color& c);
 
+		friend std::ostream& operator<<(std::ostream& stream, Color& c)
+		{
+			stream << c.r << " " << c.g << " " << c.b << " " << c.a;
+
+			return stream;
+		}
+
+
 		SDL_Color Pack8888() const;
 
 		operator SDL_Color() const { return Pack8888(); }

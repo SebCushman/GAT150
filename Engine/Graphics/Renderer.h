@@ -1,7 +1,6 @@
 #pragma once
-
 #include "Core/System.h"
-#include <string>
+#include <SDL.h>
 
 namespace nc {
     class Renderer : public System {
