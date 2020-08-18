@@ -36,6 +36,7 @@ namespace nc {
 	public:
 		Transform m_transform;
 		Engine* m_engine;
+		std::string m_name;
 
 	protected:
 		std::vector<Component*> m_components;

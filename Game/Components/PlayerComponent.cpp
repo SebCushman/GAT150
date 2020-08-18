@@ -5,6 +5,7 @@
 namespace nc {
 	void nc::PlayerComponent::Create(void* data)
 	{
+        m_owner = static_cast<nc::GameObject*>(data);
 	}
 
 	void nc::PlayerComponent::Destroy()

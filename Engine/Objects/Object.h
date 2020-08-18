@@ -9,6 +9,8 @@ namespace nc {
 
 		virtual void Read(const rapidjson::Value& value) {}
 
+		virtual void Update() = 0;
+
 		template<typename T>
 		static T* Instantiate() {
 			T* instance = new T;

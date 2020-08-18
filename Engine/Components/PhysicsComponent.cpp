@@ -5,6 +5,8 @@
 namespace nc {
 	void nc::PhysicsComponent::Create(void* data)
 	{
+		m_owner = static_cast<nc::GameObject*>(data);
+
 		m_drag = 0.95f;
 	}
 

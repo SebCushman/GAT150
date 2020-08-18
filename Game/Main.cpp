@@ -1,27 +1,20 @@
 #include "pch.h"
 #include "Graphics/Texture.h"
 #include "Objects/GameObject.h"
-#include "Components/PhysicsComponent.h"
-#include "Components/SpriteComponent.h"
 #include "Components/PlayerComponent.h"
 #include "Core/Json.h"
-#include "Core/Factory.h"
+#include "Objects/ObjectFactory.h"
 
 nc::Engine engine;
-
-nc::Factory<nc::Object, std::string> objectFactory;
-
 
 int main(int, char**) {
     
     engine.Startup();
 
-    objectFactory.Register("GameObject", nc::Object::Instantiate<nc::GameObject>);
-    objectFactory.Register("PhysicsComponent", nc::Object::Instantiate<nc::PhysicsComponent>);
-    objectFactory.Register("SpriteComponent", nc::Object::Instantiate<nc::SpriteComponent>);
-    objectFactory.Register("PlayerComponent", nc::Object::Instantiate<nc::PlayerComponent>);
+    nc::ObjectFactory::Instance().Initialize();
+    nc::ObjectFactory::Instance().Register("PlayerComponent", nc::Object::Instantiate<nc::PlayerComponent>);
 
-    nc::GameObject* player = objectFactory.Create<nc::GameObject>("GameObject");
+    nc::GameObject* player = nc::ObjectFactory::Instance().Create<nc::GameObject>("GameObject");
     
     player->Create(&engine);
 
@@ -30,19 +23,19 @@ int main(int, char**) {
     player->Read(document);
 
     nc::Component* component;
-    component = objectFactory.Create<nc::Component>("PhysicsComponent");
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("PhysicsComponent");
+    component->Create(player);
     player->AddComponent(component);
-    component->Create();
 
-    component = objectFactory.Create<nc::Component>("SpriteComponent");
-    player->AddComponent(component);
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("SpriteComponent");
     nc::json::Load("sprite.txt", document);
+    component->Create(player);
     component->Read(document);
-    component->Create();
-
-    component = objectFactory.Create<nc::Component>("PlayerComponent");
     player->AddComponent(component);
-    component->Create();
+
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("PlayerComponent");
+    component->Create(player);
+    player->AddComponent(component);
 
     //IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
