@@ -116,6 +116,9 @@
     <ClInclude Include="Objects\ObjectFactory.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\Scene.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -164,6 +167,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Objects\ObjectFactory.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Scene.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,0 +1,43 @@
+{
+	"GameObjects":[
+		{
+		"type":"GameObject",
+		"name":"Background",
+		"position":[
+			0,
+			0
+		],
+		"scale":1,
+		"angle":0,
+		"Components":[
+			{
+				"type":"SpriteComponent",
+				"texture":"background.png",
+				"rect":[0, 0, 800, 600]
+			}
+		]
+		},
+		{
+		"type":"GameObject",
+		"name":"Player",
+		"position":[
+			400,
+			300
+		],
+		"scale":1,
+		"angle":0,
+		"Components":[
+			{
+				"type":"PhysicsComponent"
+			},
+			{
+				"type":"PlayerComponent"
+			},
+			{
+				"type":"SpriteComponent",
+				"texture":"cars.png",
+				"rect":[125, 440, 60, 110]
+			}
+		]
+	}]
+}

@@ -14,6 +14,7 @@ namespace nc {
 
 		void Read(const rapidjson::Value& value) override;
 
+
 		void Update();
 		void Draw();
 
@@ -28,6 +29,8 @@ namespace nc {
 
 			return result;
 		}*/;
+
+		void ReadComponents(const rapidjson::Value& value);
 
 		void AddComponent(Component* component);
 		void RemoveComponent(Component* component);
