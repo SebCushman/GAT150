@@ -28,31 +28,31 @@ int main(int, char**) {
     //player->Create(&engine);
 
     //rapidjson::Document document;
-    ///*nc::json::Load("player.txt", document);
-    //player->Read(document);
+    /*nc::json::Load("player.txt", document);
+    player->Read(document);
 
-    //nc::Component* component;
-    //component = nc::ObjectFactory::Instance().Create<nc::Component>("PhysicsComponent");
-    //component->Create(player);
-    //player->AddComponent(component);
+    nc::Component* component;
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("PhysicsComponent");
+    component->Create(player);
+    player->AddComponent(component);
 
-    //component = nc::ObjectFactory::Instance().Create<nc::Component>("SpriteComponent");
-    //nc::json::Load("sprite.txt", document);
-    //component->Create(player);
-    //component->Read(document);
-    //player->AddComponent(component);
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("SpriteComponent");
+    nc::json::Load("sprite.txt", document);
+    component->Create(player);
+    component->Read(document);
+    player->AddComponent(component);
 
-    //component = nc::ObjectFactory::Instance().Create<nc::Component>("PlayerComponent");
-    //component->Create(player);
-    //player->AddComponent(component);*/
+    component = nc::ObjectFactory::Instance().Create<nc::Component>("PlayerComponent");
+    component->Create(player);
+    player->AddComponent(component);
 
-    //IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
-    //nc::Texture* background = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("background.png", engine.GetSystem<nc::Renderer>());
-    //nc::Texture* car = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("cars.png", engine.GetSystem<nc::Renderer>());
+    nc::Texture* background = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("background.png", engine.GetSystem<nc::Renderer>());
+    nc::Texture* car = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("cars.png", engine.GetSystem<nc::Renderer>());
 
-    //float angle{ 0 };
-    //nc::Vector2 position{ 400, 300 };
+    float angle{ 0 };
+    nc::Vector2 position{ 400, 300 };*/
     nc::Vector2 velocity{ 0,0 };
 
     SDL_Event event;

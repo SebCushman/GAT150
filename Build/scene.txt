@@ -36,8 +36,31 @@
 			{
 				"type":"SpriteComponent",
 				"texture":"cars.png",
-				"rect":[125, 440, 60, 110]
+				"origin":[0.5, 0.5],
+				"rect":[135, 440, 55, 110]
 			}
 		]
-	}]
+		},
+		{
+		"type":"GameObject",
+		"name":"Explosion",
+		"position":[
+			400,
+			300
+		],
+		"scale":1,
+		"angle":0,
+		"Components":[
+		{
+			"type":"SpriteAnimationComponent",
+			"texture":"sparkle.png",
+			"origin":[0.5, 0.5],
+			"numX":8,
+			"numY":8,
+			"numFrames":64,
+			"fps":60
+		}
+		]
+	}
+]
 }
