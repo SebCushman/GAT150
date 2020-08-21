@@ -7,10 +7,10 @@
 namespace nc {
     void nc::ObjectFactoryImpl::Initialize()
     {
-        nc::ObjectFactory::Instance().Register("GameObject", nc::Object::Instantiate<nc::GameObject>);
-        nc::ObjectFactory::Instance().Register("PhysicsComponent", nc::Object::Instantiate<nc::PhysicsComponent>);
-        nc::ObjectFactory::Instance().Register("SpriteComponent", nc::Object::Instantiate<nc::SpriteComponent>);
-        nc::ObjectFactory::Instance().Register("SpriteAnimationComponent", nc::Object::Instantiate<nc::SpriteAnimationComponent>);
+        nc::ObjectFactory::Instance().Register("GameObject", new Creator<GameObject, Object>);
+        nc::ObjectFactory::Instance().Register("PhysicsComponent", new Creator<PhysicsComponent, Object>);
+        nc::ObjectFactory::Instance().Register("SpriteComponent", new Creator<SpriteComponent, Object>);
+        nc::ObjectFactory::Instance().Register("SpriteAnimationComponent", new Creator<SpriteAnimationComponent, Object>);
     }
 }
 

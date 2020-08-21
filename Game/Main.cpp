@@ -9,51 +9,24 @@
 nc::Engine engine;
 nc::Scene scene;
 
-int main(int, char**) {
-    
-    scene.Create(&engine);
-
-   
+int main(int, char**) {   
     engine.Startup();
 
     nc::ObjectFactory::Instance().Initialize();
-    nc::ObjectFactory::Instance().Register("PlayerComponent", nc::Object::Instantiate<nc::PlayerComponent>);
+    nc::ObjectFactory::Instance().Register("PlayerComponent", new nc::Creator<nc::PlayerComponent, nc::Object>);
 
     rapidjson::Document document;
     nc::json::Load("scene.txt", document);
+    scene.Create(&engine);
     scene.Read(document);
 
-    //nc::GameObject* player = nc::ObjectFactory::Instance().Create<nc::GameObject>("GameObject");
-    
-    //player->Create(&engine);
-
-    //rapidjson::Document document;
-    /*nc::json::Load("player.txt", document);
-    player->Read(document);
-
-    nc::Component* component;
-    component = nc::ObjectFactory::Instance().Create<nc::Component>("PhysicsComponent");
-    component->Create(player);
-    player->AddComponent(component);
-
-    component = nc::ObjectFactory::Instance().Create<nc::Component>("SpriteComponent");
-    nc::json::Load("sprite.txt", document);
-    component->Create(player);
-    component->Read(document);
-    player->AddComponent(component);
-
-    component = nc::ObjectFactory::Instance().Create<nc::Component>("PlayerComponent");
-    component->Create(player);
-    player->AddComponent(component);
-
-    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-
-    nc::Texture* background = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("background.png", engine.GetSystem<nc::Renderer>());
-    nc::Texture* car = engine.GetSystem<nc::ResourceManager>()->Get<nc::Texture>("cars.png", engine.GetSystem<nc::Renderer>());
-
-    float angle{ 0 };
-    nc::Vector2 position{ 400, 300 };*/
-    nc::Vector2 velocity{ 0,0 };
+    for (size_t i = 0; i < 10; i++) {
+        nc::GameObject* gameObject = nc::ObjectFactory::Instance().Create<nc::GameObject>("ProtoExplosion");
+        gameObject->m_transform.position = { nc::random(0, 800), nc::random(0, 600) };
+        gameObject->m_transform.angle = { nc::random(0, 360) };
+        
+        scene.AddGameObject(gameObject);
+    }
 
     SDL_Event event;
     bool quit = false;
@@ -68,21 +41,14 @@ int main(int, char**) {
         //update
         engine.Update();
         scene.Update();
-        //player->Update();
 
         if (engine.GetSystem<nc::InputSystem>()->GetButtonState(SDL_SCANCODE_ESCAPE) == nc::InputSystem::eButtonState::PRESSED) {
             quit = true;
         }
         
-        //SDL_SetRenderDrawColor(renderer, 20, 0, 30, 255);
         engine.GetSystem<nc::Renderer>()->BeginFrame();
 
-        //background->Draw({ 0, 0 });
         scene.Draw();
-
-        //player sprite draw
-        //car->Draw({ 64, 110, 60, 112 }, position, { 1,1 }, angle);
-        //player->Draw();
 
         engine.GetSystem<nc::Renderer>()->EndFrame();
     }

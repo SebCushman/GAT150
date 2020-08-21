@@ -8,7 +8,8 @@ namespace nc {
 		// Inherited via Component
 		virtual void Create(void* data = nullptr) override;
 		virtual void Destroy() override;
-		
+		virtual Object* Clone() const override { return new PhysicsComponent{ *this }; }
+
 		virtual void Update() override;
 
 		void SetForce(const Vector2& force) { m_force = force; }

@@ -17,29 +17,21 @@ namespace nc {
 
     void nc::Scene::Read(const rapidjson::Value& value)
     {
-        //const rapidjson::Value& objectValue = value["GameObject"];
-        //if (objectValue.IsObject())
-        //{
-        //    std::string typeName;
-        //    // read component “type” name from json (Get)
-        //    json::Get(objectValue, "type", typeName);
-        //    nc::GameObject* gameObject = ObjectFactory::Instance().Create<GameObject>(typeName); // create from object factory, use typeName as the key
-
-        //        if (gameObject)
-        //        {
-        //            gameObject->Create(m_engine);
-        //            // call game object read (pass in objectValue)
-        //            gameObject->Read(objectValue);
-        //            // call AddGameObject passing in the game object
-        //            AddGameObject(gameObject);
-        //        }
-        //}
-        const rapidjson::Value& objectsValue = value["GameObjects"];
-        if (objectsValue.IsArray())
-        {
-            ReadGameObjects(objectsValue);
+        if (value.HasMember("Prototypes")) {
+            const rapidjson::Value& objectsValue = value["Prototypes"];
+            if (objectsValue.IsArray())
+            {
+                ReadPrototypes(objectsValue);
+            }
         }
 
+        if (value.HasMember("GameObjects")) {
+            const rapidjson::Value& objectsValue = value["GameObjects"];
+            if (objectsValue.IsArray())
+            {
+                ReadGameObjects(objectsValue);
+            }
+        }
     }
 
     void Scene::ReadGameObjects(const rapidjson::Value& value)
@@ -66,6 +58,29 @@ namespace nc {
         }
     }
 
+    void Scene::ReadPrototypes(const rapidjson::Value& value)
+    {
+        for (rapidjson::SizeType i = 0; i < value.Size(); i++)
+        {
+            const rapidjson::Value& objectValue = value[i];
+            if (objectValue.IsObject())
+            {
+                std::string typeName;
+                // read game object “type” name from json (Get)
+                json::Get(objectValue, "type", typeName);
+                GameObject* gameObject = ObjectFactory::Instance().Create<GameObject>(typeName);// create game object from object factory
+                if (gameObject)
+                {
+                    // call game object create, pass in m_engine
+                    gameObject->Create(m_engine);
+                    // call game object read
+                    gameObject->Read(objectValue);
+
+                    ObjectFactory::Instance().Register(gameObject->m_name, new Prototype<Object>(gameObject));
+                }
+            }
+        }
+    }
 
     void nc::Scene::Update()
     {

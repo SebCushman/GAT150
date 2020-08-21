@@ -15,6 +15,7 @@ namespace nc
 
 		void Read(const rapidjson::Value& value) override;
 		void ReadGameObjects(const rapidjson::Value& value);
+		void ReadPrototypes(const rapidjson::Value& value);
 
 		void Update() override;
 		void Draw();

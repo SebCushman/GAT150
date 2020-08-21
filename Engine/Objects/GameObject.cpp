@@ -6,6 +6,19 @@
 #include "ObjectFactory.h"
 
 namespace nc {
+	GameObject::GameObject(const GameObject& other)
+	{
+		m_name = other.m_name;
+		m_transform = other.m_transform;
+		m_engine = other.m_engine;
+
+		for (auto component : other.m_components) {
+			Component* clone = dynamic_cast<Component*>(component->Clone());
+			clone->m_owner = this;
+			AddComponent(clone);
+		}
+	}
+
 	void GameObject::Create(void* data)
 	{
 		m_engine = static_cast<Engine*>(data);
