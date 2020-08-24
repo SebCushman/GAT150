@@ -90,6 +90,18 @@ namespace nc {
             gameObject->Update();
         }
 
+        //remove/destroy game objects
+        auto iter = m_gameObjects.begin();
+        while (iter != m_gameObjects.end()) {
+            if ((*iter)->m_flags[GameObject::eFlags::DESTROY]) {
+                (*iter)->Destroy();
+                delete (*iter);
+                iter = m_gameObjects.erase(iter);
+            }
+            else {
+                iter++;
+            }
+        }
     }
 
     void nc::Scene::Draw()
@@ -115,6 +127,20 @@ namespace nc {
 
         return nullptr;
 
+    }
+
+    std::vector<GameObject*> Scene::FindGameObjectsWithTag(const std::string& tag)
+    {
+        std::vector<GameObject*> gameObjects;
+        for (auto gameObject : m_gameObjects)
+        {
+            // compare game object name to name parameter (==)
+            if (gameObject->m_tag == tag)
+            {
+               gameObjects.push_back(gameObject);
+            }
+        }
+        return gameObjects;
     }
 
     void nc::Scene::AddGameObject(GameObject* gameObject)

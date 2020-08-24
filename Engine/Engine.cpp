@@ -7,6 +7,7 @@ namespace nc {
 		m_systems.push_back(new Renderer);
 		m_systems.push_back(new InputSystem);
 		m_systems.push_back(new ResourceManager);
+		m_systems.push_back(new PhysicsSystem);
 
 		for (auto system : m_systems) {
 			system->Startup();
