@@ -4,6 +4,7 @@
 #include "Input/InputSystem.h"
 #include "Physics/PhysicsSystem.h"
 #include "Core/Timer.h"
+#include "Audio/AudioSystem.h"
 #include <vector>
 
 namespace nc {
