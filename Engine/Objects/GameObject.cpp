@@ -80,6 +80,31 @@ namespace nc {
 		}
 	}
 
+	void GameObject::BeginContact(GameObject* other)
+	{
+		m_contacts.push_back(other);
+		//std::cout << "begin: " << other->m_name << std::endl;
+	}
+
+	void GameObject::EndContact(GameObject* other)
+	{
+		m_contacts.remove(other);
+		//std::cout << "end: " << other->m_name << std::endl;
+	}
+
+	std::vector<GameObject*> GameObject::GetContactsWithTag(const std::string& tag)
+	{
+		std::vector<GameObject*> contacts;
+
+		for (auto contact : m_contacts) {
+			if (contact->m_tag == tag) {
+				contacts.push_back(contact);
+			}
+		}
+
+		return contacts;
+	}
+
 	void GameObject::ReadComponents(const rapidjson::Value& value)
 	{
 		for (rapidjson::SizeType i = 0; i < value.Size(); i++)

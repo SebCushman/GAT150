@@ -30,6 +30,10 @@ namespace nc {
 		void Update();
 		void Draw();
 
+		void BeginContact(GameObject* other);
+		void EndContact(GameObject* other);
+		std::vector<GameObject*> GetContactsWithTag(const std::string& tag);
+
 		template<typename T>
 		T* GetComponent() /*{
 			T* result{ nullptr };
@@ -60,6 +64,7 @@ namespace nc {
 
 	protected:
 		std::vector<Component*> m_components;
+		std::list<GameObject*> m_contacts;
 	};
 
 	template<typename T>
