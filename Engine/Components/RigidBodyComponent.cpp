@@ -33,6 +33,10 @@ namespace nc {
 
 		m_owner->m_transform.position = PhysicsSystem::World2Screen(m_body->GetPosition());
 		m_owner->m_transform.angle = nc::RadiansToDegrees(m_body->GetAngle());
+
+		m_velocity = m_body->GetLinearVelocity();
+		m_velocity.x = nc::Clamp(m_velocity.x, -5.0f, 5.0f);
+		m_body->SetLinearVelocity(m_velocity);
 	}
 
 	void nc::RigidBodyComponent::SetForce(const Vector2& force)

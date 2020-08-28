@@ -33,7 +33,7 @@ namespace nc {
 
         if (onGround && m_owner->m_engine->GetSystem<nc::InputSystem>()->GetButtonState(SDL_SCANCODE_SPACE) == nc::InputSystem::eButtonState::HELD)
         {
-            force.y = -1500;
+            force.y = -1000;
             AudioComponent* audioComponent = m_owner->GetComponent<AudioComponent>();
             if (audioComponent)
             {
