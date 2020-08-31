@@ -166,9 +166,6 @@
     <ClCompile Include="Graphics\Texture.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Resources\ResourceManager.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\Renderer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
@@ -225,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="Components\AudioComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\ResourceManager.cpp">
+      <Filter>Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

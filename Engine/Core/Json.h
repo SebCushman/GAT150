@@ -1,5 +1,8 @@
 #pragma once
 #include "document.h"
+#include "Math/Vector2.h"
+#include "Math/Color.h"
+#include "SDL.h"
 #include <string>
 #include <vector>
 

@@ -19,10 +19,13 @@ namespace nc {
 
 		virtual void Draw() override;
 
+		void Flip(bool flip = true) { m_flip = flip; }
+
 	protected:
 		//Texture* m_texture;
 		std::string m_textureName;
 		Vector2 m_origin;
 		SDL_Rect m_rect{ 0, 0, 0, 0 };
+		bool m_flip{ false };
 	};
 }

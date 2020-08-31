@@ -30,6 +30,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Components\EnemyComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\PlayerComponent.h">
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\EnemyComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

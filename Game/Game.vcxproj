@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\EnemyComponent.cpp" />
     <ClCompile Include="Components\PlayerComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -153,6 +154,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\EnemyComponent.h" />
     <ClInclude Include="Components\PlayerComponent.h" />
     <ClInclude Include="TileMap.h" />
   </ItemGroup>

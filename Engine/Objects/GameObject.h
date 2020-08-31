@@ -3,6 +3,7 @@
 #include "Math/Transform.h"
 #include "Engine.h"
 #include <bitset>
+#include <list>
 
 namespace nc {
 	class Component;
@@ -35,16 +36,7 @@ namespace nc {
 		std::vector<GameObject*> GetContactsWithTag(const std::string& tag);
 
 		template<typename T>
-		T* GetComponent() /*{
-			T* result{ nullptr };
-
-			for (auto component : m_components) {
-				result = dynamic_cast<T*>(component);
-				if (result) break;
-			}
-
-			return result;
-		}*/;
+		T* GetComponent();
 
 		void ReadComponents(const rapidjson::Value& value);
 
@@ -61,6 +53,7 @@ namespace nc {
 
 		Transform m_transform;
 		Engine* m_engine{nullptr};
+		class Scene* m_scene{ nullptr };
 
 	protected:
 		std::vector<Component*> m_components;

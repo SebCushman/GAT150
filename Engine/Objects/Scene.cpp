@@ -48,7 +48,7 @@ namespace nc {
                     if (gameObject)
                     {
                         // call game object create, pass in m_engine
-                        gameObject->Create(m_engine);
+                        gameObject->Create(this);
                         // call game object read
                         gameObject->Read(objectValue);
                         // add game object to scene
@@ -72,7 +72,7 @@ namespace nc {
                 if (gameObject)
                 {
                     // call game object create, pass in m_engine
-                    gameObject->Create(m_engine);
+                    gameObject->Create(this);
                     // call game object read
                     gameObject->Read(objectValue);
 
