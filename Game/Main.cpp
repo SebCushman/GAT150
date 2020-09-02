@@ -4,6 +4,7 @@
 #include "Components/PlayerComponent.h"
 #include "Components/EnemyComponent.h"
 #include "Core/Json.h"
+#include "Core/EventManager.h"
 #include "Objects/ObjectFactory.h"
 #include "Objects/Scene.h"
 #include "TileMap.h"
@@ -11,12 +12,21 @@
 nc::Engine engine;
 nc::Scene scene;
 
+void OnPlayerDead(const nc::Event& event) {
+    int* pdata = static_cast<int*>(event.data);
+    int score = *pdata;
+
+    std::cout << "Player Dead: " << score << std::endl;
+}
+
 int main(int, char**) {   
     engine.Startup();
 
     nc::ObjectFactory::Instance().Initialize();
     nc::ObjectFactory::Instance().Register("PlayerComponent", new nc::Creator<nc::PlayerComponent, nc::Object>);
     nc::ObjectFactory::Instance().Register("EnemyComponent", new nc::Creator<nc::EnemyComponent, nc::Object>);
+
+    nc::EventManager::Instance().Subscribe("PlayerDead", &OnPlayerDead);
 
     rapidjson::Document document;
     nc::json::Load("scene.txt", document);
@@ -27,14 +37,6 @@ int main(int, char**) {
     nc::TileMap tileMap;
     tileMap.Read(document);
     tileMap.Create(&scene);
-
-    //for (size_t i = 0; i < 10; i++) {
-    //    nc::GameObject* gameObject = nc::ObjectFactory::Instance().Create<nc::GameObject>("ProtoCoin");
-    //    gameObject->m_transform.position = { nc::random(0, 800), nc::random(350, 450) };
-    //    //gameObject->m_transform.angle = { nc::random(0, 360) };
-    //    
-    //    scene.AddGameObject(gameObject);
-    //}
 
     SDL_Event event;
     bool quit = false;

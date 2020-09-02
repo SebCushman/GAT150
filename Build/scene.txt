@@ -65,7 +65,7 @@
         },
         {
           "type": "AudioComponent",
-          "sound": "Coin.wav",
+          "sound": "audio/Coin.wav",
           "playOnAwake": true,
           "loop": false
         }
@@ -116,6 +116,51 @@
     },
     {
       "type": "GameObject",
+      "name": "ProtoSlime",
+      "tag": "Enemy",
+      "transient": false,
+      "position": [
+        400,
+        300
+      ],
+      "scale": 1,
+      "angle": 0,
+      "Components": [
+        {
+          "type": "SpriteComponent",
+          "texture": "textures/slime.png",
+          "origin": [
+            0.5,
+            0.5
+          ],
+          "rect": [
+            0,
+            0,
+            32,
+            32
+          ]
+        },
+        {
+            "type": "EnemyComponent"
+        },
+        {
+          "type": "RigidBodyComponent",
+          "isDynamic": true,
+          "isSensor": false,
+          "lockAngle": false,
+          "size": [
+            16,
+            16
+          ],
+          "density": 1,
+          "friction": 1,
+          "restitution": 0,
+          "gravityScale": 0
+        }
+      ]
+    },
+    {
+      "type": "GameObject",
       "name": "ProtoBox",
       "position": [
         400,
@@ -141,6 +186,7 @@
         {
           "type": "RigidBodyComponent",
           "isDynamic": true,
+          "isSensor": false,
           "lockAngle": false,
           "size": [
             24,
@@ -205,7 +251,7 @@
       "Components": [
         {
           "type": "SpriteComponent",
-          "texture": "textures/background.png",
+          "texture": "textures/mountainBG.png",
           "origin": [
             0,
             0
@@ -259,9 +305,15 @@
         },
         {
           "type": "AudioComponent",
-          "sound": "Coin.wav",
+          "sound": "audio/Jump.wav",
           "playOnAwake": true,
           "loop": false
+        },
+        {
+          "type": "AudioComponent",
+          "sound": "audio/bgm.mp3",
+          "playOnAwake": true,
+          "loop": true
         }
       ]
     }

@@ -53,7 +53,6 @@ namespace nc {
         fixtureDef.shape = &shape;
 
         body->CreateFixture(&fixtureDef);
-        //body->CreateFixture(&shape, data.density);
 
         return body;
     }
